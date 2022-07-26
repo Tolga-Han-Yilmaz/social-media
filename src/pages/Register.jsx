@@ -5,19 +5,23 @@ import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { setLogin } from "../features/auth";
+import { register } from "../firebase/firebase";
+import { wrong, success } from "../helper/Toasts";
 
 export default function Login() {
-  //   const [email, setEmail] = useState("");
-  //   const [password, setPassword] = useState("");
-  //   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // dispatch(setUser({ email, password }));
-    // setEmail("");
-    // setPassword("");
-    // navigate("/");
+    dispatch(setLogin(email, password));
+    await register(email, password, navigate, wrong, success);
   };
 
   return (
@@ -53,8 +57,8 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
-            // value={email}
-            // onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -65,8 +69,8 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
-            // value={password}
-            // onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <Button
