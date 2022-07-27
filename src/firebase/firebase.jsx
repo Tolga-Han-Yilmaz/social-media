@@ -20,6 +20,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import store from "../app/store";
+import { setPosts } from "../features/addpost";
 import { setLogin, setLogout } from "../features/auth";
 
 const firebaseConfig = {
@@ -100,6 +101,7 @@ onAuthStateChanged(auth, (user) => {
 export const addPost = async (data, success, wrong) => {
   try {
     const result = await addDoc(collection(db, "posts"), data);
+
     success("add successful");
     return result.id;
   } catch (error) {

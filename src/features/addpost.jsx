@@ -11,7 +11,7 @@ const posts = createSlice({
       state.posts = action.payload;
     },
     appendPosts: (state, action) => {
-      state.contacts = [...state.contacts, action.payload];
+      state.posts = [...state.posts, action.payload];
     },
   },
 });

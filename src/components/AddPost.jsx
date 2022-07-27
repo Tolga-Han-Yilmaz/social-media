@@ -11,7 +11,6 @@ import { setOpen } from "../features/dialog";
 import { addPost } from "../firebase/firebase";
 import { wrong, success } from "../helper/Toasts";
 import { setPosts, appendPosts } from "../features/addpost";
-import userEvent from "@testing-library/user-event";
 
 const AddPost = () => {
   const { open } = useSelector((state) => state.dialog);
@@ -25,18 +24,22 @@ const AddPost = () => {
   const handleChange = (e) => {
     setNewPost({ ...newPost, [e.target.id]: e.target.value });
   };
-  const { user } = useSelector((state) => state.auth);
 
   const handleAddPost = async () => {
-    setPosts(newPost);
     dispatch(setOpen(false));
-
-    await addPost({ newPost, uid: user.uid }, success, wrong);
+    await addPost(newPost, success, wrong);
+    dispatch(setPosts(newPost));
+    setNewPost({
+      title: "",
+      image: "",
+      text: "",
+    });
   };
 
   const handleClose = () => {
     dispatch(setOpen(false));
   };
+
   const { posts } = useSelector((state) => state.posts);
   console.log(posts);
   return (
