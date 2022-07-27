@@ -19,6 +19,8 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
+import store from "../app/store";
+import { setLogin, setLogout } from "../features/auth";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -84,6 +86,25 @@ export const logout = async (navigate, success) => {
   navigate("/login");
   success("exit successful");
   return true;
+};
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    store.dispatch(setLogin(user));
+  } else {
+    store.dispatch(setLogout());
+  }
+});
+
+// add post
+export const addPost = async (data, success, wrong) => {
+  try {
+    const result = await addDoc(collection(db, "posts"), data);
+    success("add successful");
+    return result.id;
+  } catch (error) {
+    wrong(error.message);
+  }
 };
 
 export default app;

@@ -16,7 +16,7 @@ const News = () => {
   const [newsList, setNewsList] = useState([]);
 
   const getNews = async () => {
-    const url = `https://newsapi.org/v2/top-headlines?country=tr&apiKey=${API_KEY}`;
+    const url = `https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=${API_KEY}`;
     try {
       const { data } = await axios(url);
       setLoading(false);
@@ -50,7 +50,7 @@ const News = () => {
           flexWrap="wrap"
         >
           {newsList?.map((item, index) => (
-            <Card sx={{ maxWidth: 345, m: 1, maxHeight: 600 }} key={index}>
+            <Card sx={{ maxWidth: 345, maxHeight: 600 }} key={index}>
               <CardMedia
                 component="img"
                 height="250"

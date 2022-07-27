@@ -31,8 +31,7 @@ export default function Main() {
             <CardMedia
               component="img"
               height="194"
-              image="/static/images/cards/paella.jpg"
-              alt="Paella dish"
+              image="https://picsum.photos/320/180"
             />
           </Grid>
 

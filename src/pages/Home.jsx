@@ -1,15 +1,13 @@
-import { Container, Grid } from "@mui/material";
-import React, { useEffect } from "react";
+import { Grid } from "@mui/material";
+
 import Main from "../components/Main";
-import Navbar from "../components/Navbar";
+
 import News from "../components/News";
 
 const Home = () => {
   return (
     <>
-      <Navbar />
-
-      <Grid container>
+      <Grid container sx={{ marginTop: "100px" }}>
         <Grid item xs={8} sm={9}>
           <Main />
         </Grid>
