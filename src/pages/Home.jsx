@@ -7,7 +7,7 @@ import News from "../components/News";
 const Home = () => {
   return (
     <>
-      <Grid container sx={{ marginTop: "100px" }}>
+      <Grid container sx={{ marginTop: { xs: "100px", md: "1rem" } }}>
         <Grid item xs={8} sm={9}>
           <Main />
         </Grid>

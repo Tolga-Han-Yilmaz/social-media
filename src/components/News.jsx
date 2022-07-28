@@ -50,10 +50,13 @@ const News = () => {
           flexWrap="wrap"
         >
           {newsList?.map((item, index) => (
-            <Card sx={{ maxWidth: 345, maxHeight: 600 }} key={index}>
+            <Card
+              sx={{ maxWidth: 345, maxHeight: 600, marginBottom: "1rem" }}
+              key={index}
+            >
               <CardMedia
                 component="img"
-                height="250"
+                height="200"
                 image={item?.urlToImage}
                 alt="img"
               />

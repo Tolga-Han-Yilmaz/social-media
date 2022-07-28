@@ -6,7 +6,6 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -30,14 +29,17 @@ import { useNavigate } from "react-router-dom";
 
 export default function Main() {
   const { posts } = useSelector((state) => state.posts);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleDelete = async (id) => {
     await deletePost(id, success);
   };
   const handleClick = (id) => {
+    user || wrong("Please login");
+
     const result = posts.filter((post) => post.id === id);
-    navigate("detail", { state: result, replace: false });
+    user && navigate("detail", { state: result, replace: false });
     console.log(result);
   };
   const [updateState, setUpdateState] = React.useState({
@@ -73,9 +75,15 @@ export default function Main() {
     <Container>
       {posts.map((post) => {
         return (
-          <Card sx={{ margin: "3" }} key={post.id}>
+          <Card sx={{ marginBottom: "1rem" }} key={post.id}>
             <Grid container>
-              <Grid item xs={12} sm={3} onClick={() => handleClick(post.id)}>
+              <Grid
+                sx={{ cursor: "pointer" }}
+                item
+                xs={12}
+                sm={3}
+                onClick={() => handleClick(post.id)}
+              >
                 <CardMedia
                   component="img"
                   height="194"
@@ -89,6 +97,7 @@ export default function Main() {
 
               <Grid xs={12} sm={9}>
                 <CardHeader
+                  sx={{ cursor: "pointer" }}
                   action={
                     <IconButton aria-label="settings">
                       <MoreVertIcon />
@@ -97,12 +106,15 @@ export default function Main() {
                   title={post.title}
                   onClick={() => handleClick(post.id)}
                 />
-                <CardContent onClick={() => handleClick(post.id)}>
+                <CardContent
+                  onClick={() => handleClick(post.id)}
+                  sx={{ cursor: "pointer" }}
+                >
                   <Typography variant="body2" color="text.secondary">
                     {post.text}
                   </Typography>
                 </CardContent>
-                <CardActions disableSpacing>
+                <CardActions>
                   <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
                   </IconButton>
@@ -158,7 +170,7 @@ export default function Main() {
                       <Button onClick={handleUpdate}>Confirm</Button>
                     </DialogActions>
                   </Dialog>
-                  <IconButton>
+                  <IconButton title="delete">
                     <DeleteForeverIcon
                       onClick={() => handleDelete(post.id)}
                       sx={{ cursor: "pointer" }}
