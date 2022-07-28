@@ -15,12 +15,13 @@ import { wrong, success } from "../helper/Toasts";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(setLogin(email, password));
+    dispatch(setLogin(email, password, name));
     await register(email, password, navigate, wrong, success);
   };
 
@@ -46,6 +47,8 @@ export default function Login() {
             label="Please Enter Name"
             name="name"
             autoComplete="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             autoFocus
           />
           <TextField

@@ -8,27 +8,31 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useSelector, useDispatch } from "react-redux";
 import { Container } from "@mui/material";
 import { setOpen } from "../features/dialog";
-import { addPost } from "../firebase/firebase";
+import { updatePost } from "../firebase/firebase";
 import { wrong, success } from "../helper/Toasts";
+import { setUpdateState, setUpdateOpen } from "../features/update";
 
-const AddPost = () => {
-  const { open } = useSelector((state) => state.dialog);
+const EditPost = () => {
+  const { updateID } = useSelector((state) => state.update);
+  const { updateState } = useSelector((state) => state.update);
+  const { updateOpen } = useSelector((state) => state.update);
   const dispatch = useDispatch();
-  const [newPost, setNewPost] = useState({
+  const [editPost, setEditPost] = useState({
     title: "",
     image: "",
     text: "",
   });
 
-  const handleChange = (e) => {
-    setNewPost({ ...newPost, [e.target.id]: e.target.value });
+  const handleChange = async (e) => {
+    await setEditPost({ ...editPost, [e.target.id]: e.target.value });
+    await dispatch(setUpdateState(editPost));
   };
 
-  const handleAddPost = async () => {
-    dispatch(setOpen(false));
-    await addPost(newPost, success, wrong);
+  const handleEditPost = async () => {
+    await updatePost(updateState, updateID, success, wrong);
+    dispatch(setUpdateOpen(false));
 
-    setNewPost({
+    setEditPost({
       title: "",
       image: "",
       text: "",
@@ -36,12 +40,12 @@ const AddPost = () => {
   };
 
   const handleClose = () => {
-    dispatch(setOpen(false));
+    dispatch(setUpdateOpen(false));
   };
 
   return (
     <Container>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={updateOpen} onClose={handleClose}>
         <DialogTitle sx={{ textAlign: "center" }}>Add Post</DialogTitle>
         <DialogContent>
           <TextField
@@ -52,7 +56,7 @@ const AddPost = () => {
             type="text"
             fullWidth
             variant="standard"
-            value={newPost.title}
+            value={updateState.title}
             onChange={(e) => handleChange(e)}
             required
           />
@@ -63,7 +67,7 @@ const AddPost = () => {
             type="text"
             fullWidth
             variant="standard"
-            value={newPost.image}
+            value={updateState.image}
             onChange={(e) => handleChange(e)}
           />
           <TextField
@@ -73,18 +77,18 @@ const AddPost = () => {
             type="text"
             fullWidth
             variant="standard"
-            value={newPost.text}
+            value={updateState.text}
             onChange={(e) => handleChange(e)}
             required
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleAddPost}>Confirm</Button>
+          <Button onClick={handleEditPost}>Confirm</Button>
         </DialogActions>
       </Dialog>
     </Container>
   );
 };
 
-export default AddPost;
+export default EditPost;

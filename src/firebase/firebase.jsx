@@ -19,8 +19,9 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
+import { useSelector } from "react-redux";
 import store from "../app/store";
-import { setPosts } from "../features/addpost";
+import { appendPosts, setPosts } from "../features/addpost";
 import { setLogin, setLogout } from "../features/auth";
 
 const firebaseConfig = {
@@ -101,12 +102,45 @@ onAuthStateChanged(auth, (user) => {
 export const addPost = async (data, success, wrong) => {
   try {
     const result = await addDoc(collection(db, "posts"), data);
-
     success("add successful");
     return result.id;
   } catch (error) {
     wrong(error.message);
   }
+};
+
+onSnapshot(collection(db, "posts"), (doc) =>
+  store.dispatch(
+    setPosts(
+      doc.docs.reduce(
+        (posts, post) => [...posts, { ...post.data(), id: post.id }],
+        []
+      )
+    )
+  )
+);
+
+// update contacts
+export const updateTodo = async (updateState, updateID, success, wrong) => {
+  try {
+    const UpdateRef = doc(db, "posts", updateID);
+    await updateDoc(UpdateRef, {
+      post: {
+        title: updateState.title,
+        image: updateState.image,
+        text: updateState.text,
+      },
+    });
+    success("update successful");
+  } catch (error) {
+    wrong("update failed");
+  }
+};
+
+// delete contacts
+export const deletePost = async (id, success) => {
+  success("delete successful");
+  return await deleteDoc(doc(db, "posts", id));
 };
 
 export default app;
