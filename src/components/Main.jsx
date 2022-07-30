@@ -40,13 +40,8 @@ export default function Main() {
 
     const result = posts.filter((post) => post.id === id);
     user && navigate("detail", { state: result, replace: false });
-    console.log(result);
   };
-  const [updateState, setUpdateState] = React.useState({
-    title: "",
-    image: "",
-    text: "",
-  });
+  const [updateState, setUpdateState] = React.useState([]);
   const [updateID, setUpdateID] = React.useState("");
 
   const handleEdit = async (id) => {
@@ -70,7 +65,7 @@ export default function Main() {
     await setOpen(false);
   };
   console.log(updateState);
-
+  // console.log(new Date(posts[1].date.nanoseconds));
   return (
     <Container>
       {posts.map((post) => {
@@ -121,12 +116,10 @@ export default function Main() {
                   <IconButton aria-label="share">
                     <ShareIcon />
                   </IconButton>
-                  <IconButton
-                    aria-label="share"
-                    title="edit"
-                    onClick={() => handleEdit(post.id)}
-                  >
-                    <AutoFixHighTwoToneIcon />
+                  <IconButton aria-label="share" title="edit">
+                    <AutoFixHighTwoToneIcon
+                      onClick={() => handleEdit(post.id)}
+                    />
                   </IconButton>
                   <Dialog open={open}>
                     <DialogTitle sx={{ textAlign: "center" }}>
@@ -167,7 +160,9 @@ export default function Main() {
                     </DialogContent>
                     <DialogActions>
                       <Button onClick={handleClose}>Cancel</Button>
-                      <Button onClick={handleUpdate}>Confirm</Button>
+                      <Button type="submit" onClick={handleUpdate}>
+                        Confirm
+                      </Button>
                     </DialogActions>
                   </Dialog>
                   <IconButton title="delete">

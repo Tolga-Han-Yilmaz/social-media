@@ -18,6 +18,7 @@ const AddPost = () => {
     title: "",
     image: "",
     text: "",
+    date: new Date(),
   });
 
   const handleChange = (e) => {
@@ -27,7 +28,7 @@ const AddPost = () => {
   const handleAddPost = async () => {
     dispatch(setOpen(false));
     await addPost(newPost, success, wrong);
-
+    console.log(newPost);
     setNewPost({
       title: "",
       image: "",

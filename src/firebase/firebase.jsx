@@ -102,6 +102,7 @@ onAuthStateChanged(auth, (user) => {
 export const addPost = async (data, success, wrong) => {
   try {
     const result = await addDoc(collection(db, "posts"), data);
+    console.log(result);
     success("add successful");
     return result.id;
   } catch (error) {
@@ -109,6 +110,7 @@ export const addPost = async (data, success, wrong) => {
   }
 };
 
+// read(get) data
 onSnapshot(collection(db, "posts"), (doc) =>
   store.dispatch(
     setPosts(
