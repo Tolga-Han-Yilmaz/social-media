@@ -24,48 +24,46 @@ import Dialog from "@mui/material/Dialog";
 import Button from "@mui/material/Button";
 import { updateTodo, deletePost } from "../firebase/firebase";
 import { wrong, success } from "../helper/Toasts";
-import { updatesContacts } from "../features/update";
 import { useNavigate } from "react-router-dom";
+import {
+  updatesContacts,
+  appendUpdates,
+  setUpdateState,
+  setUpdateID,
+  setUpdateOpen,
+} from "../features/update";
+import EditPost from "./EditPost";
 
 export default function Main() {
   const { posts } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
+  const { updateOpen } = useSelector((state) => state.update);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // delete
   const handleDelete = async (id) => {
     await deletePost(id, success);
   };
+
   const handleClick = (id) => {
     user || wrong("Please login");
-
     const result = posts.filter((post) => post.id === id);
     user && navigate("detail", { state: result, replace: false });
   };
-  const [updateState, setUpdateState] = React.useState([]);
-  const [updateID, setUpdateID] = React.useState("");
 
   const handleEdit = async (id) => {
     let dataForUpdate = await posts.filter((post) => post.id === id);
     console.log(dataForUpdate);
-    await setUpdateState(dataForUpdate[0].post);
-    await setUpdateID(dataForUpdate[0].id);
-    await dispatch(updatesContacts(updateState));
-    await setOpen(true);
+    await dispatch(setUpdateOpen(true));
+    await dispatch(setUpdateState(dataForUpdate[0].post));
+    await dispatch(setUpdateID(dataForUpdate[0].id));
+    // await dispatch(updatesContacts(updateState));
   };
 
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => setOpen(false);
-  const handleChange = (e) => {
-    setUpdateState({ ...updateState, [e.target.name]: e.target.value });
-  };
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    await updateTodo(updateState, updateID, success, wrong);
-    await setOpen(false);
-  };
-  console.log(updateState);
-  // console.log(new Date(posts[1].date.nanoseconds));
+
   return (
     <Container>
       {posts.map((post) => {
@@ -121,7 +119,8 @@ export default function Main() {
                       onClick={() => handleEdit(post.id)}
                     />
                   </IconButton>
-                  <Dialog open={open}>
+                  <EditPost open={updateOpen} />
+                  {/* <Dialog open={open}>
                     <DialogTitle sx={{ textAlign: "center" }}>
                       Add Post
                     </DialogTitle>
@@ -164,7 +163,7 @@ export default function Main() {
                         Confirm
                       </Button>
                     </DialogActions>
-                  </Dialog>
+                  </Dialog> */}
                   <IconButton title="delete">
                     <DeleteForeverIcon
                       onClick={() => handleDelete(post.id)}

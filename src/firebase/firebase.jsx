@@ -123,15 +123,13 @@ onSnapshot(collection(db, "posts"), (doc) =>
 );
 
 // update contacts
-export const updateTodo = async (updateState, updateID, success, wrong) => {
+export const updateTodo = async (updateID, updateState, success, wrong) => {
   try {
     const UpdateRef = doc(db, "posts", updateID);
     await updateDoc(UpdateRef, {
-      post: {
-        title: updateState.title,
-        image: updateState.image,
-        text: updateState.text,
-      },
+      title: updateState.title,
+      image: updateState.image,
+      text: updateState.text,
     });
     success("update successful");
   } catch (error) {

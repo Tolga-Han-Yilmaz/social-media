@@ -11,7 +11,7 @@ const store = configureStore({
     posts: postsReducer,
     update: updateReducer,
   },
-  // devTools: process.env.NODE_ENV !== "production",
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 export default store;
