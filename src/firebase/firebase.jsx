@@ -19,10 +19,11 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
-import { useSelector } from "react-redux";
+
 import store from "../app/store";
-import { appendPosts, setPosts } from "../features/addpost";
+import { setPosts } from "../features/addpost";
 import { setLogin, setLogout } from "../features/auth";
+import { setYourPosts } from "../features/yourposts";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -102,7 +103,7 @@ onAuthStateChanged(auth, (user) => {
 export const addPost = async (data, success, wrong) => {
   try {
     const result = await addDoc(collection(db, "posts"), data);
-    console.log(result);
+
     success("add successful");
     return result.id;
   } catch (error) {
@@ -121,6 +122,7 @@ onSnapshot(collection(db, "posts"), (doc) =>
     )
   )
 );
+onSnapshot(collection(db, "posts"), (doc) => console.log(doc));
 
 // update contacts
 export const updateTodo = async (updateID, updateState, success, wrong) => {

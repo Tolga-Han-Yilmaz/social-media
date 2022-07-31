@@ -6,12 +6,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useSelector, useDispatch } from "react-redux";
-import { Container } from "@mui/material";
-import { setOpen } from "../features/dialog";
-import { updatePost } from "../firebase/firebase";
+
 import { wrong, success } from "../helper/Toasts";
 // import { setUpdateState, setUpdateOpen } from "../features/update";
-import { inMemoryPersistence } from "firebase/auth";
 import { updateTodo } from "../firebase/firebase";
 import {
   updatesContacts,
@@ -26,17 +23,10 @@ const EditPost = () => {
   const { updateState } = useSelector((state) => state.update);
   const { updateOpen } = useSelector((state) => state.update);
   const dispatch = useDispatch();
-  const [editPost, setEditPost] = useState({
-    title: "",
-    image: "",
-    text: "",
-  });
 
-  const handleChange = (e) => {
-    dispatch(
-      setUpdateState(
-        setEditPost({ ...editPost, [e.target.name]: e.target.value })
-      )
+  const handleChange = async (e) => {
+    await dispatch(
+      setUpdateState({ ...updateState, [e.target.id]: e.target.value })
     );
   };
   const handleUpdate = async (e) => {
@@ -61,7 +51,7 @@ const EditPost = () => {
           type="text"
           fullWidth
           variant="standard"
-          value={editPost.title}
+          value={updateState.title}
           onChange={(e) => handleChange(e)}
           required
         />
@@ -72,7 +62,7 @@ const EditPost = () => {
           type="text"
           fullWidth
           variant="standard"
-          value={editPost.image}
+          value={updateState.image}
           onChange={(e) => handleChange(e)}
         />
         <TextField
@@ -82,7 +72,7 @@ const EditPost = () => {
           type="text"
           fullWidth
           variant="standard"
-          value={editPost.text}
+          value={updateState.text}
           onChange={(e) => handleChange(e)}
           required
         />
