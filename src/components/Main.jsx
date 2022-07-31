@@ -18,6 +18,8 @@ import { useSelector } from "react-redux";
 
 import { wrong } from "../helper/Toasts";
 import { useNavigate } from "react-router-dom";
+import HoverRating from "./Rating";
+import HalfRating from "./Rating";
 
 export default function Main() {
   const { posts } = useSelector((state) => state.posts);
@@ -76,7 +78,7 @@ export default function Main() {
                 </CardContent>
                 <CardActions sx={{ marginTop: "1.5rem" }}>
                   <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
+                    <HalfRating />
                   </IconButton>
                   <IconButton aria-label="share">
                     <ShareIcon />

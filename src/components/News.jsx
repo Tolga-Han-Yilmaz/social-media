@@ -8,6 +8,7 @@ import { CardMedia } from "@mui/material";
 import loadingGif from "../assets/loading.gif";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Container } from "@mui/system";
 
 const News = () => {
   const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
@@ -27,7 +28,7 @@ const News = () => {
   useEffect(() => {
     getNews();
   }, []);
-
+  const styles = {};
   return (
     <>
       {loading && (
@@ -54,6 +55,7 @@ const News = () => {
                 maxWidth: 345,
                 maxHeight: 600,
                 marginBottom: "1rem",
+                display: { xs: "none", sm: "block" },
               }}
               key={index}
             >
@@ -79,6 +81,53 @@ const News = () => {
               </CardActions>
             </Card>
           ))}
+
+          <Box sx={{ display: { xs: "inline-block", sm: "none" } }}>
+            <div
+              id="carouselExampleInterval"
+              className="carousel slide "
+              data-bs-ride="carousel"
+            >
+              <div className="carousel-inner">
+                {newsList?.map((item, index) => (
+                  <div
+                    className="carousel-item active"
+                    data-bs-interval="10000"
+                  >
+                    <img
+                      src={item?.urlToImage}
+                      className="d-block w-100"
+                      alt="..."
+                    />
+                  </div>
+                ))}
+              </div>
+              <button
+                className="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExampleInterval"
+                data-bs-slide="prev"
+              >
+                <span
+                  className="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button
+                className="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExampleInterval"
+                data-bs-slide="next"
+              >
+                <span
+                  className="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Next</span>
+              </button>
+            </div>
+          </Box>
         </Box>
       )}
     </>

@@ -64,7 +64,7 @@ const Navbar = () => {
     setAnchorElNav(null);
     console.log(user);
     const result = posts.filter((post) => post.uid === user.uid);
-    user && navigate("yourposts", { state: result, replace: false });
+    user && navigate("yourposts", { state: result, replace: true });
   };
 
   const randomUser = Math.floor(Math.random() * 100);

@@ -11,7 +11,7 @@ const Home = () => {
         <Grid item xs={12} sm={9}>
           <Main />
         </Grid>
-        <Grid item sm={3} sx={{ display: { xs: "none", sm: "flex" } }}>
+        <Grid item sm={3} xs={12}>
           <News />
         </Grid>
       </Grid>

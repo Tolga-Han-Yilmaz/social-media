@@ -10,13 +10,15 @@ import { Container } from "@mui/material";
 import { setOpen } from "../features/dialog";
 import { addPost } from "../firebase/firebase";
 import { wrong, success } from "../helper/Toasts";
+import { serverTimestamp } from "firebase/firestore";
 
 const AddPost = () => {
   const { user } = useSelector((state) => state.auth);
 
   const { open } = useSelector((state) => state.dialog);
   const dispatch = useDispatch();
-  let date = new Date();
+  let date = serverTimestamp();
+  console.log(date);
   const [newPost, setNewPost] = useState({
     title: "",
     image: "",
