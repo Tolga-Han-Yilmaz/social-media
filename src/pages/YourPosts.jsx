@@ -1,7 +1,109 @@
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Container,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import EditPost from "../components/EditPost";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import AutoFixHighTwoToneIcon from "@mui/icons-material/AutoFixHighTwoTone";
+import { deletePost } from "../firebase/firebase";
+import { success } from "../helper/Toasts";
+
+import { setUpdateState, setUpdateID, setUpdateOpen } from "../features/update";
 
 const YourPosts = () => {
-  return <div>YourPosts</div>;
+  let { state } = useLocation();
+
+  const dispatch = useDispatch();
+
+  console.log(state);
+
+  // delete
+  const handleDelete = async (id) => {
+    await deletePost(id, success);
+  };
+
+  const handleEdit = async (id) => {
+    let dataForUpdate = await state.filter((post) => post.id === id);
+    await dispatch(setUpdateOpen(true));
+    await dispatch(setUpdateState(dataForUpdate[0]));
+    await dispatch(setUpdateID(dataForUpdate[0].id));
+  };
+  const { updateOpen } = useSelector((state) => state.update);
+
+  return (
+    <Container>
+      {state.map((post) => {
+        return (
+          <Card sx={{ marginBottom: "1rem" }} key={post.id}>
+            <Grid container>
+              <Grid sx={{ cursor: "pointer" }} item xs={12} sm={3}>
+                <CardMedia
+                  component="img"
+                  height="194"
+                  image={
+                    post.image.includes("https")
+                      ? post.image
+                      : "https://picsum.photos/320/180"
+                  }
+                />
+              </Grid>
+
+              <Grid xs={12} sm={9}>
+                <CardHeader
+                  sx={{ cursor: "pointer" }}
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title={post.title}
+                />
+                <CardContent sx={{ cursor: "pointer" }}>
+                  <Typography variant="body2" color="text.secondary">
+                    {post.text}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <IconButton aria-label="add to favorites">
+                    <FavoriteIcon />
+                  </IconButton>
+                  <IconButton aria-label="share">
+                    <ShareIcon />
+                  </IconButton>
+                  <IconButton aria-label="share" title="edit">
+                    <AutoFixHighTwoToneIcon
+                      onClick={() => handleEdit(post.id)}
+                    />
+                  </IconButton>
+                  <EditPost open={updateOpen} />
+
+                  <IconButton title="delete">
+                    <DeleteForeverIcon
+                      onClick={() => handleDelete(post.id)}
+                      sx={{ cursor: "pointer" }}
+                    />
+                  </IconButton>
+                </CardActions>
+              </Grid>
+            </Grid>
+          </Card>
+        );
+      })}
+    </Container>
+  );
 };
 
 export default YourPosts;

@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { CardMedia } from "@mui/material";
 import loadingGif from "../assets/loading.gif";
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -51,7 +50,11 @@ const News = () => {
         >
           {newsList?.map((item, index) => (
             <Card
-              sx={{ maxWidth: 345, maxHeight: 600, marginBottom: "1rem" }}
+              sx={{
+                maxWidth: 345,
+                maxHeight: 600,
+                marginBottom: "1rem",
+              }}
               key={index}
             >
               <CardMedia

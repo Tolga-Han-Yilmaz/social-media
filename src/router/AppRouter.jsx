@@ -7,6 +7,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import SinglePost from "../pages/SinglePost";
+import YourPosts from "../pages/YourPosts";
 import PrivateRouter from "./PrivateRouter";
 
 const AppRouter = () => {
@@ -21,6 +22,7 @@ const AppRouter = () => {
             {/* <Route path="" element={<AddPost />} /> */}
           </Route>
           <Route path="/detail" element={<SinglePost />} />
+          <Route path="/yourposts" element={<YourPosts />} />
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

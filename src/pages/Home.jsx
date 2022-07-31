@@ -8,10 +8,10 @@ const Home = () => {
   return (
     <>
       <Grid container sx={{ marginTop: { xs: "100px", md: "1rem" } }}>
-        <Grid item xs={8} sm={9}>
+        <Grid item xs={12} sm={9}>
           <Main />
         </Grid>
-        <Grid item xs={4} sm={3}>
+        <Grid item sm={3} sx={{ display: { xs: "none", sm: "flex" } }}>
           <News />
         </Grid>
       </Grid>

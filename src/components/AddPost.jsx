@@ -12,16 +12,17 @@ import { addPost } from "../firebase/firebase";
 import { wrong, success } from "../helper/Toasts";
 
 const AddPost = () => {
-  const { yourposts } = useSelector((state) => state.yourposts);
   const { user } = useSelector((state) => state.auth);
 
   const { open } = useSelector((state) => state.dialog);
   const dispatch = useDispatch();
+  let date = new Date();
   const [newPost, setNewPost] = useState({
     title: "",
     image: "",
     text: "",
     uid: "",
+    date: `${date}`,
   });
 
   const handleChange = (e) => {
@@ -31,7 +32,6 @@ const AddPost = () => {
   const handleAddPost = async () => {
     dispatch(setOpen(false));
     await addPost({ ...newPost, uid: user.uid }, success, wrong);
-    await console.log(yourposts);
     setNewPost({
       title: "",
       image: "",
@@ -42,7 +42,6 @@ const AddPost = () => {
   const handleClose = () => {
     dispatch(setOpen(false));
   };
-  console.log(yourposts);
   return (
     <Container>
       <Dialog open={open} onClose={handleClose}>

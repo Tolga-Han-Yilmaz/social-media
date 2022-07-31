@@ -23,7 +23,6 @@ import {
 import store from "../app/store";
 import { setPosts } from "../features/addpost";
 import { setLogin, setLogout } from "../features/auth";
-import { setYourPosts } from "../features/yourposts";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -86,7 +85,7 @@ export const googleLogin = (navigate, wrong, success) => {
 // logout
 export const logout = async (navigate, success) => {
   await signOut(auth);
-  navigate("/login");
+  navigate("/");
   success("exit successful");
   return true;
 };
