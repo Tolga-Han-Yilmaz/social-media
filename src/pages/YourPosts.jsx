@@ -25,7 +25,6 @@ import { setUpdateState, setUpdateID, setUpdateOpen } from "../features/update";
 
 const YourPosts = () => {
   let { state } = useLocation();
-
   const dispatch = useDispatch();
 
   console.log(state);
@@ -44,7 +43,7 @@ const YourPosts = () => {
   const { updateOpen } = useSelector((state) => state.update);
 
   return (
-    <Container>
+    <Container sx={{ mt: "2rem" }}>
       {state.map((post) => {
         return (
           <Card sx={{ marginBottom: "1rem" }} key={post.id}>

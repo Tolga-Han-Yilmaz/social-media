@@ -17,14 +17,16 @@ const AddPost = () => {
 
   const { open } = useSelector((state) => state.dialog);
   const dispatch = useDispatch();
-  let date = serverTimestamp();
-  console.log(date);
+  let date = new Date();
+
+  const User = user.displayName ? user.displayName : user.email;
   const [newPost, setNewPost] = useState({
     title: "",
     image: "",
     text: "",
     uid: "",
     date: `${date}`,
+    User: `${User}`,
   });
 
   const handleChange = (e) => {

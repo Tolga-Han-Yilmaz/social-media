@@ -28,7 +28,6 @@ const News = () => {
   useEffect(() => {
     getNews();
   }, []);
-  const styles = {};
   return (
     <>
       {loading && (
@@ -82,7 +81,7 @@ const News = () => {
             </Card>
           ))}
 
-          <Box sx={{ display: { xs: "inline-block", sm: "none" } }}>
+          <Box sx={{ display: { xs: "none" } }}>
             <div
               id="carouselExampleInterval"
               className="carousel slide "
@@ -90,18 +89,19 @@ const News = () => {
             >
               <div className="carousel-inner">
                 {newsList?.map((item, index) => (
-                  <div
-                    className="carousel-item active"
-                    data-bs-interval="10000"
-                  >
+                  <div className="carousel-item ">
                     <img
                       src={item?.urlToImage}
                       className="d-block w-100"
                       alt="..."
                     />
+
+                    {/* <p>{item?.title}</p> */}
+                    {/* <p>{item?.content}</p> */}
                   </div>
                 ))}
               </div>
+
               <button
                 className="carousel-control-prev"
                 type="button"

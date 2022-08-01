@@ -20,6 +20,7 @@ import { wrong } from "../helper/Toasts";
 import { useNavigate } from "react-router-dom";
 import HoverRating from "./Rating";
 import HalfRating from "./Rating";
+import { Box } from "@mui/material";
 
 export default function Main() {
   const { posts } = useSelector((state) => state.posts);
@@ -73,23 +74,34 @@ export default function Main() {
                   sx={{ cursor: "pointer" }}
                 >
                   <Typography variant="body2" color="text.secondary">
-                    {post.text}
+                    {post.text.length > 170
+                      ? post.text.slice(0, 170) + "....."
+                      : post.text}
                   </Typography>
                 </CardContent>
-                <CardActions sx={{ marginTop: "1.5rem" }}>
-                  <IconButton aria-label="add to favorites">
-                    <HalfRating />
-                  </IconButton>
-                  <IconButton aria-label="share">
-                    <ShareIcon />
-                  </IconButton>
-
-                  <Typography variant="body2" color="text.secondary">
-                    {(post?.date).slice(0, 21)}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {user.displayName ? user.displayName : user.email}
-                  </Typography>
+                <CardActions
+                  sx={{
+                    // marginTop: "1.5rem",
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Box>
+                    <IconButton aria-label="add to favorites">
+                      <HalfRating />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ShareIcon />
+                    </IconButton>
+                  </Box>
+                  <Box>
+                    <Typography variant="body2" color="text.secondary">
+                      {(post?.date).slice(0, 21)}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {post.User}
+                    </Typography>
+                  </Box>
                 </CardActions>
               </Grid>
             </Grid>
