@@ -21,7 +21,6 @@ import { success, wrong } from "../helper/Toasts";
 import { setLogout } from "../features/auth";
 import { setOpen } from "../features/dialog";
 import AddPost from "./AddPost";
-import { setYourPosts } from "../features/addpost";
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -8,15 +7,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useSelector, useDispatch } from "react-redux";
 
 import { wrong, success } from "../helper/Toasts";
-// import { setUpdateState, setUpdateOpen } from "../features/update";
 import { updateTodo } from "../firebase/firebase";
-import {
-  updatesContacts,
-  appendUpdates,
-  setUpdateState,
-  setUpdateID,
-  setUpdateOpen,
-} from "../features/update";
+import { setUpdateState, setUpdateOpen } from "../features/update";
 
 const EditPost = () => {
   const { updateID } = useSelector((state) => state.update);

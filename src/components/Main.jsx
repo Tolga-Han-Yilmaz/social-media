@@ -10,7 +10,6 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Container } from "@mui/system";
@@ -18,7 +17,6 @@ import { useSelector } from "react-redux";
 
 import { wrong } from "../helper/Toasts";
 import { useNavigate } from "react-router-dom";
-import HoverRating from "./Rating";
 import HalfRating from "./Rating";
 import { Box } from "@mui/material";
 

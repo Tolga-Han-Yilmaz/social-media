@@ -8,7 +8,6 @@ import { CardMedia } from "@mui/material";
 import loadingGif from "../assets/loading.gif";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Container } from "@mui/system";
 
 const News = () => {
   const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
