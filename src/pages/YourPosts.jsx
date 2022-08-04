@@ -9,7 +9,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import EditPost from "../components/EditPost";
@@ -26,8 +26,9 @@ import { setUpdateState, setUpdateID, setUpdateOpen } from "../features/update";
 const YourPosts = () => {
   let { state } = useLocation();
   const dispatch = useDispatch();
+  const { posts } = useSelector((state) => state.posts);
+  // const { updateState } = useSelector((state) => state.update);
   const [block, setBlock] = useState(state);
-  console.log(state);
 
   // delete
   const handleDelete = async (id) => {
@@ -39,11 +40,17 @@ const YourPosts = () => {
 
   const handleEdit = async (id) => {
     let dataForUpdate = await state.filter((post) => post.id === id);
+    // const { user } = useSelector((state) => state.auth);
+
     await dispatch(setUpdateOpen(true));
     await dispatch(setUpdateState(dataForUpdate[0]));
     await dispatch(setUpdateID(dataForUpdate[0].id));
-    await setBlock(dataForUpdate);
+    // await setBlock(updateState);
   };
+  // useEffect(() => {
+  //   const result = posts.filter((post) => post.uid === user.uid);
+  // }, [updateOpen]);
+
   const { updateOpen } = useSelector((state) => state.update);
 
   return (
