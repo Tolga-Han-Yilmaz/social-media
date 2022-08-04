@@ -42,7 +42,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { posts } = useSelector((state) => state.posts);
-
+  let randomUser = "";
   const handleLogin = () => {
     navigate("/login");
   };
@@ -66,8 +66,6 @@ const Navbar = () => {
     const result = posts.filter((post) => post.uid === user.uid);
     user && navigate("yourposts", { state: result, replace: true });
   };
-
-  const randomUser = Math.floor(Math.random() * 100);
 
   return (
     <>
@@ -231,9 +229,11 @@ const Navbar = () => {
                 }}
               >
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Home</Typography>
+                  <Typography textAlign="center" onClick={() => navigate("/")}>
+                    Home
+                  </Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
+                <MenuItem onClick={handleYourPosts}>
                   <Typography textAlign="center">Your posts</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
@@ -279,7 +279,7 @@ const Navbar = () => {
               </Button>
               <Button
                 title="Your posts"
-                onClick={handleCloseNavMenu}
+                onClick={handleYourPosts}
                 sx={{ my: 2, color: "#424242", display: "block" }}
               >
                 <AutoStoriesIcon />

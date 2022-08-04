@@ -9,7 +9,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import EditPost from "../components/EditPost";
@@ -26,12 +26,15 @@ import { setUpdateState, setUpdateID, setUpdateOpen } from "../features/update";
 const YourPosts = () => {
   let { state } = useLocation();
   const dispatch = useDispatch();
-
+  const [block, setBlock] = useState(state);
   console.log(state);
 
   // delete
   const handleDelete = async (id) => {
     await deletePost(id, success);
+    let dataForUpdate = await state.filter((post) => post.id !== id);
+
+    setBlock(dataForUpdate);
   };
 
   const handleEdit = async (id) => {
@@ -39,12 +42,13 @@ const YourPosts = () => {
     await dispatch(setUpdateOpen(true));
     await dispatch(setUpdateState(dataForUpdate[0]));
     await dispatch(setUpdateID(dataForUpdate[0].id));
+    await setBlock(dataForUpdate);
   };
   const { updateOpen } = useSelector((state) => state.update);
 
   return (
     <Container sx={{ mt: "2rem" }}>
-      {state.map((post) => {
+      {block.map((post) => {
         return (
           <Card sx={{ marginBottom: "1rem" }} key={post.id}>
             <Grid container>

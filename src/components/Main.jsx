@@ -73,13 +73,15 @@ export default function Main() {
                 >
                   <Typography variant="body2" color="text.secondary">
                     {post.text.length > 170
-                      ? post.text.slice(0, 170) + "....."
+                      ? post.text.slice(0, 170) +
+                        "... [+" +
+                        (Number(post.text.length) - 170) +
+                        " chars]"
                       : post.text}
                   </Typography>
                 </CardContent>
                 <CardActions
                   sx={{
-                    // marginTop: "1.5rem",
                     display: "flex",
                     justifyContent: "space-between",
                   }}
