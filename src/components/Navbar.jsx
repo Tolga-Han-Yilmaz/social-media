@@ -21,7 +21,6 @@ import { success, wrong } from "../helper/Toasts";
 import { setLogout } from "../features/auth";
 import { setOpen } from "../features/dialog";
 import AddPost from "./AddPost";
-import { setUpdateState } from "../features/update";
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -43,7 +42,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { posts } = useSelector((state) => state.posts);
-  const { updateState } = useSelector((state) => state.update);
   let randomUser = "";
   const handleLogin = () => {
     navigate("/login");

@@ -14,8 +14,6 @@ import {
   addDoc,
   onSnapshot,
   doc,
-  query,
-  where,
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -50,7 +48,6 @@ export const register = async (email, password, navigate, wrong, success) => {
     success("Registration Successful");
     return user;
   } catch (error) {
-    console.log(error);
     navigate("/register");
     wrong(error.mesage);
   }
@@ -121,7 +118,6 @@ onSnapshot(collection(db, "posts"), (doc) =>
     )
   )
 );
-onSnapshot(collection(db, "posts"), (doc) => console.log(doc));
 
 // update contacts
 export const updateTodo = async (updateID, updateState, success, wrong) => {

@@ -1,20 +1,16 @@
 import * as React from "react";
-
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Container } from "@mui/system";
 import { useSelector } from "react-redux";
-
 import { wrong } from "../helper/Toasts";
 import { useNavigate } from "react-router-dom";
 import HalfRating from "./Rating";

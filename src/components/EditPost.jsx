@@ -5,7 +5,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { wrong, success } from "../helper/Toasts";
 import { updateTodo } from "../firebase/firebase";
 import { setUpdateState, setUpdateOpen } from "../features/update";
@@ -24,11 +23,9 @@ const EditPost = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     await updateTodo(updateID, updateState, success, wrong);
-    // await dispatch(updateState);
 
     await dispatch(setUpdateOpen(false));
   };
-  // useEffect(() => {}, [handleUpdate()]);
 
   const handleClose = () => {
     dispatch(setUpdateOpen(false));

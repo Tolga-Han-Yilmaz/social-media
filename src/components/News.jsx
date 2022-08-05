@@ -26,6 +26,7 @@ const News = () => {
   };
   useEffect(() => {
     getNews();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
@@ -94,9 +95,6 @@ const News = () => {
                       className="d-block w-100"
                       alt="..."
                     />
-
-                    {/* <p>{item?.title}</p> */}
-                    {/* <p>{item?.content}</p> */}
                   </div>
                 ))}
               </div>
