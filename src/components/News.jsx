@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const News = () => {
-  const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
+  const API_KEY = "358e5d186ba546fc8562e64d5cc51b73";
   const [loading, setLoading] = useState(true);
   const [newsList, setNewsList] = useState([]);
 

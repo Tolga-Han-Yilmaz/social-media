@@ -13,12 +13,11 @@ import { wrong, success } from "../helper/Toasts";
 
 const AddPost = () => {
   const { user } = useSelector((state) => state.auth);
-
   const { open } = useSelector((state) => state.dialog);
   const dispatch = useDispatch();
   let date = new Date();
 
-  const User = user.displayName ? user.displayName : user.email;
+  const User = user.email;
   const [newPost, setNewPost] = useState({
     title: "",
     image: "",

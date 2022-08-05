@@ -33,7 +33,7 @@ const EditPost = () => {
 
   return (
     <Dialog open={updateOpen} onClose={handleClose}>
-      <DialogTitle sx={{ textAlign: "center" }}>Add Post</DialogTitle>
+      <DialogTitle sx={{ textAlign: "center" }}>Update Post</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
@@ -71,7 +71,7 @@ const EditPost = () => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleUpdate}>Confirm</Button>
+        <Button onClick={handleUpdate}>Update</Button>
       </DialogActions>
     </Dialog>
   );
