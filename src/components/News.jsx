@@ -10,12 +10,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const News = () => {
-  const API_KEY = "358e5d186ba546fc8562e64d5cc51b73";
+  const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
   const [loading, setLoading] = useState(true);
   const [newsList, setNewsList] = useState([]);
 
   const getNews = async () => {
-    const url = `https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=${API_KEY}`;
+    const url = `https://gnews.io/api/v4/search?q=example&token=${API_KEY}`;
     try {
       const { data } = await axios(url);
       setLoading(false);
@@ -61,7 +61,7 @@ const News = () => {
               <CardMedia
                 component="img"
                 height="200"
-                image={item?.urlToImage}
+                image={item?.image}
                 alt="img"
               />
               <CardContent>
